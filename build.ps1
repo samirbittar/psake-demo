@@ -4,7 +4,8 @@
 remove-module [p]sake
 
 # Restore NuGet Packages
-& ".\nuget.exe restore"
+$nuget = ".\nuget.exe"
+& $nuget restore
 
 # find psake's path
 $psakeModule = (Get-ChildItem (".\Packages\psake*\tools\psake.psm1")).FullName | Sort-Object $_ | select -last 1
