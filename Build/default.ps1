@@ -41,12 +41,20 @@ task Clean -description "Remove temporary files" { 
 }
  
 task Compile `
-    -depends Init `
+    -depends PackageRestore `
     -description "Compile the code" `
     -requiredVariables solutionFile, buildConfiguration, buildPlatform, temporaryOutputDirectory {
     Write-Host "Building solution $solutionFile"
     Exec {
         msbuild $solutionFile "/p:Configuration=$buildConfiguration;Platform=$buildPlatform;OutDir=$temporaryOutputDirectory"
+    }
+}
+
+task PackageRestore -depends Init `
+                    -description "Restores NuGet Packages" `
+                    -requiredVariables solutionDirectory {
+    Exec {
+        & "$solutionDirectory\nuget.exe restore"
     }
 }
  
