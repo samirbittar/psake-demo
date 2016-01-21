@@ -3,6 +3,9 @@
 # '[p]sake' is the same as 'psake' but $Error is not polluted
 remove-module [p]sake
 
+# Restore NuGet Packages
+& ".\nuget.exe restore"
+
 # find psake's path
 $psakeModule = (Get-ChildItem (".\Packages\psake*\tools\psake.psm1")).FullName | Sort-Object $_ | select -last 1
  
